@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>USTP Library System</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="extra.css" />
+    <link rel="icon" href="ustp1.jpg" />
+  </head>
+  <body>
+    <a
+      class="skip"
+      href="#"
+      onclick="
+        document.getElementById('main').focus();
+        return false;
+      "
+      >Skip to content</a
+    >
+    <div class="app">
+      <nav class="side" id="nav" aria-label="Main"></nav>
+      <main>
+        <header class="top">
+          <label class="sb">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              aria-hidden="true"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <path d="M20 20l-4-4" />
+            </svg>
+            <input
+              id="q"
+              type="search"
+              placeholder="Search title, author, or book ID"
+              aria-label="Search books"
+            />
+          </label>
+          <a class="ib" href="#notifications" aria-label="Notifications">
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M6 17V11a6 6 0 0112 0v6l2 2H4z" />
+              <path d="M10 21h4" />
+            </svg>
+            <span class="dot" id="bdot" style="display: none"></span>
+          </a>
+          <div class="me">
+            <a
+              class="av"
+              id="uav"
+              href="#profile"
+              title="My profile"
+              aria-label="My profile"
+              >JA</a
+            >
+            <div>
+              <strong id="un">John Albert</strong><br /><span
+                id="ur"
+                style="color: var(--mut)"
+                >Student</span
+              >
+            </div>
+          </div>
+          <button
+            class="ib"
+            data-a="logout"
+            data-id=""
+            aria-label="Log out"
+            title="Log out"
+            style="cursor: pointer"
+          >
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M9 4H5v16h4" />
+              <path d="M16 8l4 4-4 4" />
+              <path d="M20 12H9" />
+            </svg>
+          </button>
+        </header>
+        <div id="main" tabindex="-1"></div>
+      </main>
+    </div>
+
+    <div id="toast" role="status" aria-live="polite"></div>
+
+    <div id="md" role="dialog" aria-modal="true" aria-label="Book details">
+      <div class="mc" id="mdb"></div>
+    </div>
+
+    <!-- LOGIN / SIGN UP / FORGOT PASSWORD  (lamp version) -->
+    <div id="login">
+      <div class="stage">
+        <div class="bgimg" aria-hidden="true"></div>
+
+        <header class="brand">
+          <img src="ustp1.jpg" alt="USTP logo" class="blogo" />
+          <h1>USTP LIBRARY</h1>
+          <span class="bar"></span>
+        </header>
+
+        <div class="scene">
+          <!-- LAMP -->
+          <div class="lampcol">
+            <div class="lampwrap">
+              <div class="halo" aria-hidden="true"></div>
+              <svg
+                id="lampsvg"
+                viewBox="0 0 300 360"
+                role="img"
+                aria-label="Desk lamp"
+              >
+                <defs>
+                  <linearGradient id="cg" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-opacity=".6" />
+                    <stop offset="1" stop-opacity="0" />
+                  </linearGradient>
+                  <linearGradient id="sh" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#3d3d4c" />
+                    <stop offset="1" stop-color="#13131a" />
+                  </linearGradient>
+                </defs>
+
+                <path
+                  class="cone"
+                  d="M150 128 L220 128 L300 340 L70 340 Z"
+                  fill="url(#cg)"
+                />
+                <ellipse
+                  cx="150"
+                  cy="338"
+                  rx="78"
+                  ry="9"
+                  fill="#000"
+                  opacity=".55"
+                />
+
+                <!-- base + arms -->
+                <ellipse cx="150" cy="327" rx="52" ry="11" fill="#14141b" />
+                <ellipse cx="150" cy="322" rx="52" ry="11" fill="#2a2a36" />
+                <line
+                  x1="150"
+                  y1="320"
+                  x2="118"
+                  y2="205"
+                  stroke="#1d1d27"
+                  stroke-width="8"
+                  stroke-linecap="round"
+                />
+                <line
+                  x1="118"
+                  y1="205"
+                  x2="160"
+                  y2="100"
+                  stroke="#1d1d27"
+                  stroke-width="8"
+                  stroke-linecap="round"
+                />
+                <circle cx="150" cy="320" r="9" fill="#c9a227" />
+                <circle cx="118" cy="205" r="9" fill="#c9a227" />
+                <circle cx="160" cy="100" r="7" fill="#c9a227" />
+
+                <!-- shade -->
+                <path
+                  class="shade"
+                  d="M130 124 Q130 56 185 56 Q240 56 240 124 Z"
+                  fill="url(#sh)"
+                />
+                <ellipse class="rim" cx="185" cy="124" rx="55" ry="8" />
+                <circle class="bulb" cx="185" cy="130" r="10" />
+
+                <!-- PULL CORD -->
+                <g class="sway">
+                  <rect
+                    id="cline"
+                    class="cline"
+                    x="231"
+                    y="128"
+                    width="2"
+                    height="80"
+                    fill="#c9a227"
+                  />
+                  <g
+                    id="cord"
+                    tabindex="0"
+                    role="button"
+                    aria-pressed="false"
+                    aria-label="Pull the cord to turn the light on or off"
+                  >
+                    <circle cx="232" cy="214" r="8" fill="#e8c545" />
+                    <circle
+                      cx="229.5"
+                      cy="211.5"
+                      r="2.5"
+                      fill="#fff6c9"
+                      opacity=".8"
+                    />
+                    <circle
+                      id="cordhit"
+                      cx="232"
+                      cy="214"
+                      r="26"
+                      fill="transparent"
+                    />
+                  </g>
+                </g>
+              </svg>
+            </div>
+            <p id="lhint" class="lhint" aria-live="polite">
+              Pull the cord to turn on the light
+            </p>
+          </div>
+
+          <!-- LOGIN CARD -->
+          <div class="lcard">
+            <div class="lform">
+              <div id="v-login">
+                <h2>Login</h2>
+                <p class="sub">Please sign in to continue</p>
+                <label for="lu">Username</label>
+                <input
+                  id="lu"
+                  class="in"
+                  placeholder="Enter username"
+                  autocomplete="username"
+                />
+                <label for="lp">Password</label>
+                <input
+                  id="lp"
+                  class="in"
+                  type="password"
+                  placeholder="Enter password"
+                  autocomplete="current-password"
+                />
+                <div class="lrow">
+                  <label class="chk"
+                    ><input
+                      type="checkbox"
+                      onchange="
+                        document.getElementById('lp').type = this.checked
+                          ? 'text'
+                          : 'password'
+                      "
+                    />
+                    Show password</label
+                  >
+                  <button class="link" data-a="show" data-id="forgot">
+                    Forgot password?
+                  </button>
+                </div>
+                <div class="lrow">
+                  <label class="chk"
+                    ><input type="checkbox" id="lrem" /> Remember me</label
+                  >
+                </div>
+                <p class="err" id="lerr" role="alert"></p>
+                <button class="btn go" data-a="login" data-id="">Login</button>
+                <p class="alt">
+                  No account yet?
+                  <button class="link" data-a="show" data-id="signup">
+                    Create account
+                  </button>
+                </p>
+              </div>
+
+              <div id="v-signup" style="display: none">
+                <h2>Create account</h2>
+                <p class="sub">
+                  Student sign up only. Sign up once, then use it to log in.
+                </p>
+                <label for="sn">Full name</label>
+                <input
+                  id="sn"
+                  class="in"
+                  placeholder="Enter full name"
+                  autocomplete="name"
+                />
+                <label for="se">Email (Gmail)</label>
+                <input
+                  id="se"
+                  class="in"
+                  type="email"
+                  placeholder="yourname@gmail.com"
+                  autocomplete="email"
+                />
+                <label for="su">Username</label>
+                <input
+                  id="su"
+                  class="in"
+                  placeholder="Choose a username"
+                  autocomplete="username"
+                />
+                <label for="sr">Role</label>
+                <select id="sr" class="in">
+                  <option>Student</option>
+                </select>
+                <label for="sp">Password</label>
+                <input
+                  id="sp"
+                  class="in"
+                  type="password"
+                  placeholder="At least 4 characters"
+                  autocomplete="new-password"
+                />
+                <label for="sp2">Confirm password</label>
+                <input
+                  id="sp2"
+                  class="in"
+                  type="password"
+                  placeholder="Type the password again"
+                  autocomplete="new-password"
+                />
+                <p class="err" id="serr" role="alert"></p>
+                <button class="btn go" data-a="signup" data-id="">
+                  Create account
+                </button>
+                <p class="alt">
+                  Already have an account?
+                  <button class="link" data-a="show" data-id="login">
+                    Login
+                  </button>
+                </p>
+              </div>
+
+              <div id="v-forgot" style="display: none">
+                <h2>Reset password</h2>
+                <p class="sub">Enter your username and a new password.</p>
+                <label for="fu">Username</label>
+                <input id="fu" class="in" placeholder="Enter username" />
+                <label for="fp">New password</label>
+                <input
+                  id="fp"
+                  class="in"
+                  type="password"
+                  placeholder="At least 4 characters"
+                  autocomplete="new-password"
+                />
+                <p class="err" id="ferr" role="alert"></p>
+                <button class="btn go" data-a="forgot" data-id="">
+                  Save new password
+                </button>
+                <p class="alt">
+                  <button class="link" data-a="show" data-id="login">
+                    Back to login
+                  </button>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="books-data.js"></script>
+    <script src="book_001.js"></script>
+    <script src="book_002.js"></script>
+    <script src="book_003.js"></script>
+    <script src="book_004.js"></script>
+    <script src="book_005.js"></script>
+    <script src="book_006.js"></script>
+    <script src="book_007.js"></script>
+    <script src="book_008.js"></script>
+    <script src="book_009.js"></script>
+    <script src="book_0010.js"></script>
+    <script src="book_0011.js"></script>
+    <script src="book_0012.js"></script>
+    <script src="book_0013.js"></script>
+    <script src="book_0014.js"></script>
+    <script src="book_0015.js"></script>
+    <script src="book_0016.js"></script>
+    <script src="book_0017.js"></script>
+    <script src="book_0018.js"></script>
+
+    <script src="qr.js"></script>
+    <script src="java.js"></script>
+    <script src="lamp.js"></script>
+  </body>
+</html>
